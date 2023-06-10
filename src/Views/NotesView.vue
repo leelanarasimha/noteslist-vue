@@ -16,20 +16,11 @@
     </div>
   </div>
 
-  <div class="card mb-4" v-for="note in notes" :key="note.id">
-    <div class="card-content">
-      <div class="content">
-        {{ note.content }}
-      </div>
-    </div>
-    <footer class="card-footer">
-      <a href="#" class="card-footer-item">Edit</a>
-      <a href="#" class="card-footer-item">Delete</a>
-    </footer>
-  </div>
+  <SingleNote v-for="note in notes" :key="note.id" :note="note" />
 </template>
 
 <script setup>
+  import SingleNote from '../components/Notes/SingleNote.vue';
   import { ref } from 'vue';
 
   const notes = ref([
