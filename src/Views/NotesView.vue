@@ -3,23 +3,23 @@
     <div class="field">
       <label class="label">Note</label>
       <div class="control">
-        <textarea class="textarea" placeholder="Add New Note"></textarea>
+        <textarea class="textarea" placeholder="Add New Note" v-model="newNote" ref="newNoteRef"></textarea>
       </div>
     </div>
 
     <div class="field is-grouped is-grouped-right">
       <div class="control">
-        <button class="button is-link is-danger">Add New Note</button>
+        <button :disabled="!newNote" class="button is-link is-danger" @click.prevent="addNote">
+          Add New Note
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="card mb-4">
+  <div class="card mb-4" v-for="note in notes" :key="note.id">
     <div class="card-content">
       <div class="content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quod cumque, voluptatibus, minus labore
-        impedit natus rem dolores corrupti atque porro. Esse culpa possimus quae iusto cupiditate sit
-        dignissimos quod!
+        {{ note.content }}
       </div>
     </div>
     <footer class="card-footer">
@@ -28,3 +28,28 @@
     </footer>
   </div>
 </template>
+
+<script setup>
+  import { ref } from 'vue';
+
+  const notes = ref([
+    { id: 'id1', content: 'First Note' },
+    { id: 'id2', content: 'Second Note' }
+  ]);
+
+  const newNoteRef = ref(null);
+
+  const newNote = ref('');
+
+  const addNote = () => {
+    const currentDate = new Date().getTime().toString();
+    const note = {
+      id: currentDate,
+      content: newNote.value
+    };
+
+    notes.value.unshift(note);
+    newNote.value = '';
+    newNoteRef.value.focus();
+  };
+</script>
