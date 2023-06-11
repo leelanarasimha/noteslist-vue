@@ -17,8 +17,13 @@ export const useNotesStore = defineStore('notesStore', () => {
     notes.value.unshift(note);
   };
 
+  const deleteNote = (noteId) => {
+    notes.value = notes.value.filter((note) => note.id !== noteId);
+  };
+
   return {
     notes,
-    addNote
+    addNote,
+    deleteNote
   };
 });

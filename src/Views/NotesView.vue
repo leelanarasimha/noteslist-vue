@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <SingleNote v-for="note in notes" :key="note.id" :note="note" @onDeleteClicked="deleteNote" />
+  <SingleNote v-for="note in notes" :key="note.id" :note="note" />
 </template>
 
 <script setup>
@@ -37,9 +37,5 @@
     notesStore.addNote(newNote.value);
     newNote.value = '';
     newNoteRef.value.focus();
-  };
-
-  const deleteNote = (idToDelete) => {
-    notes.value = notes.value.filter((note) => note.id !== idToDelete);
   };
 </script>
