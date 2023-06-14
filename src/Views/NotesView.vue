@@ -1,5 +1,11 @@
 <template>
-  <AddEditNote />
+  <AddEditNote v-model="newNote" ref="addEditNoteRef">
+    <template #button>
+      <button :disabled="!newNote" class="button is-link is-danger" @click.prevent="addNote">
+        Add New Note
+      </button>
+    </template>
+  </AddEditNote>
 
   <SingleNote v-for="note in notes" :key="note.id" :note="note" />
 </template>
@@ -13,7 +19,7 @@
 
   const notesStore = useNotesStore();
 
-  const newNoteRef = ref(null);
+  const addEditNoteRef = ref(null);
 
   const { notes } = storeToRefs(notesStore);
 
@@ -22,6 +28,6 @@
   const addNote = () => {
     notesStore.addNote(newNote.value);
     newNote.value = '';
-    newNoteRef.value.focus();
+    addEditNoteRef.value.focusTextArea();
   };
 </script>
