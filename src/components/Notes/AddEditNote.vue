@@ -1,11 +1,11 @@
 <template>
-  <div class="has-background-danger-dark my-4 p-4">
+  <div class="my-4 p-4" :class="`has-background-${bgColor}-dark`">
     <div class="field">
-      <label class="label">Note</label>
+      <label class="label has-text-white" v-if="label">{{ label }}</label>
       <div class="control">
         <textarea
           class="textarea"
-          placeholder="Add New Note"
+          :placeholder="placeholder"
           :value="modelValue"
           @input="$emit('update:modelValue', $event.target.value)"
           ref="textareaRef"
@@ -24,7 +24,23 @@
 <script setup>
   import { ref } from 'vue';
 
-  const props = defineProps(['modelValue']);
+  const props = defineProps({
+    modelValue: {
+      type: String,
+      required: true
+    },
+    bgColor: {
+      type: String,
+      default: 'danger'
+    },
+    label: {
+      type: String
+    },
+    placeholder: {
+      type: String,
+      default: 'Type Some Thing ....'
+    }
+  });
   const emit = defineEmits(['update:modelValue']);
 
   const textareaRef = ref(null);
