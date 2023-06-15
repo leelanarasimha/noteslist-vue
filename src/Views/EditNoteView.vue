@@ -19,10 +19,11 @@
   import AddEditNote from '../components/Notes/AddEditNote.vue';
   import { useRoute } from 'vue-router';
   import { ref } from 'vue';
+  import { useNotesStore } from '../stores/NotesStore';
 
   const route = useRoute();
 
-  const noteContent = ref('');
+  const notesStore = useNotesStore();
 
-  console.log(route.params);
+  const noteContent = notesStore.getNoteContentById(route.params.id);
 </script>
