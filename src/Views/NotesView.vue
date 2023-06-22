@@ -16,6 +16,7 @@
   import { ref } from 'vue';
   import { useNotesStore } from '../stores/NotesStore';
   import { storeToRefs } from 'pinia';
+  import { useCharactersLimit } from '../composables/useCharactersLimit';
 
   const notesStore = useNotesStore();
 
@@ -30,4 +31,6 @@
     newNote.value = '';
     addEditNoteRef.value.focusTextArea();
   };
+
+  useCharactersLimit(newNote);
 </script>
