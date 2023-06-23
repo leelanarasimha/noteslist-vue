@@ -14,12 +14,14 @@
       >
       <a href="#" class="card-footer-item" @click.prevent="handleDeleteClick">Delete</a>
     </footer>
+    <DeleteNoteModal v-if="modals.deleteModal" v-model="modals.deleteModal" />
   </div>
 </template>
 
 <script setup>
-  import { computed } from 'vue';
+  import { computed, reactive } from 'vue';
   import { useNotesStore } from '../../stores/NotesStore';
+  import DeleteNoteModal from './DeleteNoteModal.vue';
 
   const props = defineProps({
     note: {
@@ -38,6 +40,11 @@
   });
 
   const handleDeleteClick = () => {
-    notesStore.deleteNote(props.note.id);
+    modals.deleteModal = true;
+    //notesStore.deleteNote(props.note.id);
   };
+
+  const modals = reactive({
+    deleteModal: false
+  });
 </script>
