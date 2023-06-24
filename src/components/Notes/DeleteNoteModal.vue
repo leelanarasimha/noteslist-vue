@@ -8,7 +8,7 @@
       </header>
       <section class="modal-card-body">Are you sure you want to Delete?</section>
       <footer class="modal-card-foot">
-        <button class="button is-danger">Delete</button>
+        <button class="button is-danger" @click="deleteNote">Delete</button>
         <button class="button" @click="closeModal">Cancel</button>
       </footer>
     </div>
@@ -18,19 +18,31 @@
 <script setup>
   import { onMounted, onUnmounted, ref } from 'vue';
   import { onClickOutside } from '@vueuse/core';
+  import { useNotesStore } from '../../stores/NotesStore';
 
   const props = defineProps({
     modelValue: {
       type: Boolean,
       required: true
+    },
+    noteId: {
+      type: String,
+      required: true
     }
   });
+
+  const notesStore = useNotesStore();
 
   const handleClose = (event) => {
     console.log('key close event');
     if (event.key === 'Escape') {
       closeModal();
     }
+  };
+
+  const deleteNote = () => {
+    //console.log(props.noteId);
+    notesStore.deleteNote(props.noteId);
   };
 
   const closeModal = () => {
