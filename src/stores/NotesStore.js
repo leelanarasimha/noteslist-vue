@@ -17,6 +17,7 @@ import { db } from '../js/firebase';
 
 export const useNotesStore = defineStore('notesStore', () => {
   const notes = ref([]);
+  const notesLoaded = ref(false);
 
   const notesCollectionRef = collection(db, 'notes');
   const notesCollectionQuery = query(notesCollectionRef, orderBy('date', 'desc'));
@@ -39,6 +40,7 @@ export const useNotesStore = defineStore('notesStore', () => {
 
     onSnapshot(notesCollectionQuery, (querySnapshot) => {
       let notesData = [];
+      notesLoaded.value = false;
       querySnapshot.forEach((doc) => {
         let note = {
           id: doc.id,
@@ -49,6 +51,7 @@ export const useNotesStore = defineStore('notesStore', () => {
       });
 
       notes.value = notesData;
+      notesLoaded.value = true;
     });
   };
 
@@ -94,6 +97,7 @@ export const useNotesStore = defineStore('notesStore', () => {
     deleteNote,
     totalCharactersCount,
     totalNotesCount,
-    getNotes
+    getNotes,
+    notesLoaded
   };
 });
