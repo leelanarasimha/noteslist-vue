@@ -13,7 +13,10 @@
     <SingleNote v-for="note in notes" :key="note.id" :note="note" />
   </template>
 
-  <div class="has-text-centered py-6 is-size-4 has-text-grey-light is-family-monospace" v-if="!notes.length">
+  <div
+    class="has-text-centered py-6 is-size-4 has-text-grey-light is-family-monospace"
+    v-if="!notes.length && notesStore.notesLoaded"
+  >
     No Notes Added here yet!!
   </div>
 </template>
