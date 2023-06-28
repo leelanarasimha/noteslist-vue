@@ -44,8 +44,11 @@
 
 <script setup>
   import { computed, reactive, ref } from 'vue';
+  import { useAuthStore } from '../stores/AuthStore';
 
   const register = ref(false);
+
+  const authStore = useAuthStore();
 
   const credentials = reactive({
     email: '',
@@ -63,7 +66,7 @@
     }
 
     if (register.value) {
-      console.log('register clicked', credentials);
+      authStore.registerUser(credentials);
     } else {
       console.log('Login clicked', credentials);
     }
