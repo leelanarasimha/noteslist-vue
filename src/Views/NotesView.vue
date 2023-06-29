@@ -24,7 +24,7 @@
 <script setup>
   import SingleNote from '../components/Notes/SingleNote.vue';
   import AddEditNote from '../components/Notes/AddEditNote.vue';
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { useNotesStore } from '../stores/NotesStore';
   import { storeToRefs } from 'pinia';
   import { useCharactersLimit } from '../composables/useCharactersLimit';
@@ -34,6 +34,10 @@
   const addEditNoteRef = ref(null);
 
   const { notes } = storeToRefs(notesStore);
+
+  onMounted(() => {
+    notesStore.getNotes();
+  });
 
   const newNote = ref('');
 

@@ -68,7 +68,7 @@
     if (register.value) {
       authStore.registerUser(credentials);
     } else {
-      console.log('Login clicked', credentials);
+      authStore.loginUser(credentials);
     }
   };
 </script>
