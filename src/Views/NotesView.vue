@@ -35,10 +35,6 @@
 
   const { notes } = storeToRefs(notesStore);
 
-  onMounted(() => {
-    notesStore.getNotes();
-  });
-
   const newNote = ref('');
 
   const addNote = () => {
