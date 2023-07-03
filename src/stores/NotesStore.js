@@ -23,6 +23,7 @@ export const useNotesStore = defineStore('notesStore', () => {
   const authStore = useAuthStore();
   let notesCollectionRef;
   let notesCollectionQuery;
+  let notesSnapshot = null;
 
   const getNoteContentById = computed(() => {
     return (id) => {
@@ -43,7 +44,7 @@ export const useNotesStore = defineStore('notesStore', () => {
     //   notes.value.push(note);
     // });
 
-    onSnapshot(notesCollectionQuery, (querySnapshot) => {
+    notesSnapshot = onSnapshot(notesCollectionQuery, (querySnapshot) => {
       let notesData = [];
       notesLoaded.value = false;
       querySnapshot.forEach((doc) => {
@@ -58,6 +59,11 @@ export const useNotesStore = defineStore('notesStore', () => {
       notes.value = notesData;
       notesLoaded.value = true;
     });
+  };
+
+  const clearNotes = () => {
+    notes.value = [];
+    if (notesSnapshot) notesSnapshot();
   };
 
   const totalNotesCount = computed(() => {
@@ -103,6 +109,7 @@ export const useNotesStore = defineStore('notesStore', () => {
     totalCharactersCount,
     totalNotesCount,
     getNotes,
-    notesLoaded
+    notesLoaded,
+    clearNotes
   };
 });
